@@ -90,9 +90,10 @@ def make_dataset_entry(entry, objects, detectors):
             if off_ey > 0.2:
                 cmap[in_ey][x][c] = max(off_ey, cmap[in_ey][x][c])
 
-    return (entry["file"], cmap)
+    return (entry["file"][:-4], cmap.tolist())
 
 
-cmap = make_dataset(["person","bird","car"], 11, 416, 416)
+cmap = make_dataset(["person","bird","car"], 11, 416, 416, 100)
 df = pd.DataFrame(cmap, columns=["file", "cmap"])
-df.to_csv("data/cmap.csv")
+#df.to_csv("data/cmap.csv", index_label="id")
+df.to_pickle("data/cmap.p")
