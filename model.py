@@ -39,7 +39,7 @@ def build_model():
     model.add(Dense(11*11*3, activation="relu"))
     model.add(Reshape((11,11,3)))
 
-    # TODO binary_crossentropy
+    # TODO custom loss function(?)
     model.summary()
     model.compile(loss="mse", optimizer=Adam(), metrics=["accuracy"])
     return model
