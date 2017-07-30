@@ -5,10 +5,7 @@ import os
 import math
 import matplotlib.pyplot as plt
 import pandas as pd
-
-ann_root = "C:/Dev/Datasets/VOCdevkit/VOC2012/Annotations/"
-img_root = "C:/Dev/Datasets/VOCdevkit/VOC2012/JPEGImages/"
-
+from config import ann_root, img_root
 
 def make_classmap(classes):
     return dict((classes[i],i) for i in range(0,len(classes)))
@@ -75,20 +72,21 @@ def make_dataset_entry(entry, objects, detectors):
         # Add to map
         for y in range(in_sy, in_ey):
             for x in range(in_sx, in_ex):
-                cmap[y][x][c] = 1.0
+                cmap[y][x][c] += 1
 
         # Add offset to map
+
         for y in range(in_sy, in_ey):
-            if off_sx > 0.2:
-                cmap[y][in_sx - 1][c] = max(off_sx, cmap[y][in_sx - 1][c])
-            if off_ex > 0.2:
-                cmap[y][in_ex][c] = max(off_ex, cmap[y][in_ex][c])
+            if off_sx > 0.25:
+                cmap[y][in_sx - 1][c] += off_sx
+            if off_ex > 0.25:
+                cmap[y][in_ex][c] += off_ex
 
         for x in range(in_sx, in_ex):
-            if off_sy > 0.2:
-                cmap[in_sy - 1][x][c] = max(off_sy, cmap[in_sy - 1][x][c])
-            if off_ey > 0.2:
-                cmap[in_ey][x][c] = max(off_ey, cmap[in_ey][x][c])
+            if off_sy > 0.25:
+                cmap[in_sy - 1][x][c] += off_sy
+            if off_ey > 0.25:
+                cmap[in_ey][x][c] += off_ey
 
     return (entry["file"][:-4], cmap.tolist())
 

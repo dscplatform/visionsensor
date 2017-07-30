@@ -27,9 +27,9 @@ def build_model():
     for i in range(0,2):
       model.add(Conv2D(512, (3,3), padding="same", use_bias=False, strides=(1,1)))
       model.add(BatchNormalization())
-      model.add(LeakyReLU(alpha=0.1))
+      model.add(Activation("relu"))
 
-    model.add(Conv2D(16, (3,3), padding="same", use_bias=False, strides=(1,1)))
+    model.add(Conv2D(8, (3,3), padding="same", use_bias=False, strides=(1,1)))
     model.add(BatchNormalization())
     model.add(Activation("relu"))
 
@@ -52,7 +52,7 @@ def build_model_test():
     model.add(BatchNormalization())
     model.add(MaxPooling2D(pool_size=(16,16)))
     model.add(Flatten())
-    model.add(Dense(11*11*3, activation="sigmoid"))
+    model.add(Dense(11*11*3, activation="relu"))
     model.add(Reshape((11,11,3)))
 
     model.summary()

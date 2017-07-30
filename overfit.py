@@ -7,15 +7,15 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 
 # Parameters
-epochs = 100
-batch_size = 5
-patience = 10
+epochs = 200
+batch_size = 1
+patience = 25
 
 # Model
 model = build_model()
 
 # Data Generator
-X, y = load_rows(0, 100)
+X, y = load_rows(0, 50)
 
 # Early stop
 early_stopping_monitor = EarlyStopping(patience=patience, monitor="acc", mode="auto")
@@ -24,5 +24,5 @@ early_stopping_monitor = EarlyStopping(patience=patience, monitor="acc", mode="a
 model.fit(X, y, epochs=epochs, batch_size=batch_size, verbose=1, callbacks=[early_stopping_monitor], validation_split=0.25)
 
 # Predict and visualize
-data = model.predict(X[-5:])
-vis_output(y[-5:], data)
+data = model.predict(X[:5])
+vis_output(y[:5], data, 0)

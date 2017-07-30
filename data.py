@@ -5,9 +5,7 @@ import math
 import pandas as pd
 import cv2
 import matplotlib.pyplot as plt
-
-ann_root = "C:/Dev/Datasets/VOCdevkit/VOC2012/Annotations/"
-img_root = "C:/Dev/Datasets/VOCdevkit/VOC2012/JPEGImages/"
+from config import ann_root, img_root
 
 
 def build_generator():
@@ -43,12 +41,15 @@ def make_output_matrix(data, c):
             img[y][x] = data[y][x][c]
     return img
 
-def vis_output(actual, data):
+def vis_output(actual, data, c):
+    max_a = data.max()
+    data /= max_a
+    actual /= max_a
     size = actual.shape[0]
     detectors = actual.shape[3]
     fig = plt.figure()
-    c = 0
     n = 1
+    print ("Showing %d maps with a AMAX of %d" % (size, max_a))
 
     for i in range(0, size):
         a = plt.subplot(size,2,n)
