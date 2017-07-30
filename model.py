@@ -45,22 +45,6 @@ def build_model():
     return model
 
 
-def build_model_test():
-
-    model = Sequential()
-    model.add(Conv2D(8, (3,3), strides=(1,1), padding="same", use_bias=False, input_shape=(416,416,3)))
-    model.add(BatchNormalization())
-    model.add(MaxPooling2D(pool_size=(16,16)))
-    model.add(Flatten())
-    model.add(Dense(11*11*3, activation="relu"))
-    model.add(Reshape((11,11,3)))
-
-    model.summary()
-    model.compile(loss="binary_crossentropy", optimizer=Adam(), metrics=["accuracy"])
-    model.compile(loss="binary_crossentropy", optimizer=Adam(), metrics=["accuracy"])
-    return model
-
-
 #model = build_model()
 #plot_model(model, to_file="data/model.png")
 
