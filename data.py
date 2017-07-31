@@ -28,7 +28,7 @@ def load_rows(offset, length):
 
 def load_image(path, w, h):
     print(path)
-    img = cv2.imread(img_root + path + ".jpg")
+    img = cv2.imread(img_root + path + ".jpg") # TODO remember this is BGR colors
     if img.shape[0] != h or img.shape[1] != w:
         img = cv2.resize(img, (w, h))
     return img

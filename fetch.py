@@ -75,7 +75,6 @@ def make_dataset_entry(entry, objects, detectors):
                 cmap[y][x][c] += 1
 
         # Add offset to map
-
         for y in range(in_sy, in_ey):
             if off_sx > 0.25:
                 cmap[y][in_sx - 1][c] += off_sx
