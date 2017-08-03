@@ -1,13 +1,16 @@
 import sys
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from keras.models import load_model
 from pprint import pprint
 from data import load_rows, make_output_matrix
 from bbox import extract
+import os
+os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 
 # Parameters
-version = 1
+version = 3
 offset = 0
 
 # Model
@@ -27,10 +30,11 @@ pprint(result)
 # Visualize
 fig,ax = plt.subplots(1)
 ax.imshow(make_output_matrix(yvis[0], 0), cmap="gray")
+#ax.imshow(X[0])
 
 for j in range(0, len(result[0])):
     bx, by, bw, bh = result[0][j]
-    rect = patches.Rectangle((bx*11.0 - 0.5,by*11.0 - 0.5),bw*11.0,bh*11.0,linewidth=1,edgecolor='r',facecolor='none')
+    rect = patches.Rectangle((bx*11.0 - 0.5,by*11.0 - 0.5),bw*11.0,bh*11.0,linewidth=1,edgecolor="r",facecolor="none")
     ax.add_patch(rect)
 
 plt.show()

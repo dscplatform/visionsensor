@@ -1,4 +1,3 @@
-from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 import numpy as np
 import os
 import math
@@ -7,9 +6,9 @@ import cv2
 import matplotlib.pyplot as plt
 from config import ann_root, img_root
 
-
 def build_generator():
     pass
+
 
 def load_rows(offset, length):
     df = pd.read_pickle("data/cmap.p")
@@ -22,7 +21,6 @@ def load_rows(offset, length):
         y[i] = np.asarray(row["cmap"], dtype=np.float32)
 
     X = X / 255.0
-
     return (X, y)
 
 
@@ -32,6 +30,7 @@ def load_image(path, w, h):
     if img.shape[0] != h or img.shape[1] != w:
         img = cv2.resize(img, (w, h))
     return img
+    #return cv2.cvtColor(img, cv2.COLOR_BGR2RGB) the PASCAL instance loads different images??
 
 
 def make_output_matrix(data, c):
@@ -40,6 +39,7 @@ def make_output_matrix(data, c):
         for x in range(0,11):
             img[y][x] = data[y][x][c]
     return img
+
 
 def vis_output(actual, data, c):
     max_a = data.max()
